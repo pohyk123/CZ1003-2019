@@ -9,3 +9,5 @@ Week 4: Relational Operations, Conditional Expressions, Iterations
 Week 5: LAMS Quiz 1
 <br />
 Week 6: Data Abstraction (Data Structure)
+<br />
+Week 7: Procedural Abstraction (Function & Module)
