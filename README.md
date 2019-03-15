@@ -11,3 +11,5 @@ Week 5: LAMS Quiz 1
 Week 6: Data Abstraction (Data Structure)
 <br />
 Week 7: Procedural Abstraction (Function & Module)
+<br />
+Week 8 (Final week): Decomposition
