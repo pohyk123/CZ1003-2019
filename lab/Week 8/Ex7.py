@@ -26,7 +26,7 @@ def move_marble(pitch,roll,x,y):
         new_y += 1 # move up
     elif 359 > roll > 179 and y != 0:
         new_y -= 1 # move down
-    return new_x, new_y 
+    return new_x, new_y
 
 # Ensures marble pos is not within the walls
 def check_wall(x,y,new_x,new_y):
@@ -37,7 +37,7 @@ def check_wall(x,y,new_x,new_y):
     elif board[y][new_x] != r:
         return new_x, y
     else:
-        return x,y 
+        return x,y
 
 # Checks if target pos is achieved
 def checkTarget(x,y,target_x,target_y):
@@ -64,7 +64,7 @@ def generateMaze(n):
             i = randint(1,6)
             j = randint(1,6)
         maze[j][i] = r
-        
+
     return maze
 
 def seed(maze):
@@ -78,53 +78,53 @@ def seed(maze):
 while True:
     game_over = False
     timeElapsed = 0
-    
+
     # countdown timer
     for i in range(3,0,-1):
         print('Starting game in {}'.format(i))
         sleep(1)
-    
-    # generate new maze and initialise board  
+
+    # generate new maze and initialise board
     maze = generateMaze(5)
     x,y = seed(maze)
     target_y,target_x = seed(maze)
-    
+
     # start timer
     startTime = time.time()
-    
+
     # game ends if player wins or time left becomes 0
     while (not game_over) and (timeElapsed<10):
-        
+
         # # Challenge: random target switch at 5s
         # if(4.95<timeElapsed<5.05):
         #     target_y,target_x = randint(1,6),randint(1,6)
-            
+
         # restore maze and target so we don't create duplicate marbles
         board = deepcopy(maze)
         board[target_y][target_x] = blue
-            
+
         # Get imu values
         pitch = sense.get_orientation()['pitch']
         roll = sense.get_orientation()['roll']
-        
+
         # Move marbles wrt imu orientation
         new_x,new_y = move_marble(pitch,roll,x,y)
-        
+
         # checks that marble doesn't exceed the wall when moving around
         x,y = check_wall(x,y,new_x,new_y)
         board[y][x] = w
-        
+
         # checks if player has reached target
         game_over = checkTarget(x,y,target_x,target_y)
-        
+
         # display pixels
         sense.set_pixels(sum(board,[]))
-        
+
         # Eval time left
         timeElapsed = time.time()-startTime
-        sleep(1)
-        
+        sleep(0.05)
+
         del board
-        
+
     print('Game Over!')
     sleep(0.05)
